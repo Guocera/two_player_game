@@ -1,4 +1,4 @@
-### Lighthouse Labs: 2 Player Game
+## Lighthouse Labs: 2 Player Game
 
 From assignment description:
 Create a 2-player guessing game where players take turns to answer simple addition problems. The math questions are 
