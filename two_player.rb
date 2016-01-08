@@ -17,18 +17,10 @@ player2 = Player.create_player("Rachel")
 
 while is_alive? player1, player2
   who_is_playing = (i % 2) + 1
-  num1, num2 = generate_question()
-  player_answer = prompt_player_for_answer(who_is_playing, player1, player2, num1, num2)
-  if correct_answer? player_answer, num1, num2
-    who_is_playing == 1 ? player1.gain_point : player2.gain_point
-    puts "Correct!".green
-    puts
-  else
-    who_is_playing == 1 ? player1.lose_life : player2.lose_life
-    puts "Incorrect!".red
-    puts
-    display_scores(player1, player2)
-  end
+  correct_answer, operator, num1, num2 = generate_question()
+  player_answer = prompt_player_for_answer(who_is_playing, player1, player2, operator, num1, num2)
+  give_feedback(who_is_playing, player_answer, correct_answer, player1, player2)
+
   i += 1
 end
 
