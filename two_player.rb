@@ -1,4 +1,5 @@
 require 'pry'
+require 'colorize'
 require './methods'
 require './player'
 
@@ -20,11 +21,11 @@ while is_alive? player1, player2
   player_answer = prompt_player_for_answer(who_is_playing, player1, player2, num1, num2)
   if correct_answer? player_answer, num1, num2
     who_is_playing == 1 ? player1.gain_point : player2.gain_point
-    puts "Correct!"
+    puts "Correct!".green
     puts
   else
     who_is_playing == 1 ? player1.lose_life : player2.lose_life
-    puts "Incorrect!"
+    puts "Incorrect!".red
     puts
     display_scores(player1, player2)
   end
