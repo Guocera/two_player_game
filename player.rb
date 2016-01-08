@@ -21,12 +21,16 @@ class Player
     @lives = lives
   end
 
-  def gain_point()
+  def gain_point
     @score += 1
   end
 
-  def lose_life()
+  def lose_life
     @lives -= 1
+  end
+
+  def restart
+    @lives = 3
   end
 end
 
