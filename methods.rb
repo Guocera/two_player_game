@@ -1,18 +1,17 @@
-def display_scores()
-  puts
-  unless is_alive?
+def display_scores(player1, player2)
+  unless is_alive? player1, player2
     puts "Game Over" 
-    if @score1 > @score2
-      puts "Player 1 Wins!"
-    elsif @score1 < @score2
-      puts "Player 2 Wins!"
+    if player1.score > player2.score
+      puts "#{player1.player_name} Wins!"
+    elsif player1.score < player2.score
+      puts "#{player2.player_name} Wins!"
     else
       puts "Tie!"
     end
     puts
   end
-  puts "Player 1 score: #{@score1}  Player 1 lives: #{@lives1}"
-  puts "Player 2 score: #{@score2}  Player 2 lives: #{@lives2}"
+  puts "#{player1.player_name} score: #{player1.score}  #{player1.player_name} lives: #{player1.lives}"
+  puts "#{player2.player_name} score: #{player2.score}  #{player2.player_name} lives: #{player2.lives}"
   puts
 end
 
@@ -22,8 +21,12 @@ def generate_question()
   return num1, num2
 end
 
-def prompt_player_for_answer(player, num1, num2)
-  puts "#{player}: What does #{num1} plus #{num2} equal?"
+def prompt_player_for_answer(player, player1, player2, num1, num2)
+  if player == 1
+    puts "#{player1.player_name}: What does #{num1} plus #{num2} equal?"
+  else
+    puts "#{player2.player_name}: What does #{num1} plus #{num2} equal?"
+  end
   gets.chomp.to_i
 end
 
@@ -31,6 +34,10 @@ def correct_answer?(player_answer, num1, num2)
   player_answer == num1 + num2
 end
 
-def is_alive?()
-  @lives1 != 0 && @lives2 != 0
+def is_alive?(player1,player2)
+  player1.lives != 0 && player2.lives != 0
 end
+
+
+
+

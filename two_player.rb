@@ -1,5 +1,6 @@
 require 'pry'
 require './methods'
+require './player'
 
 @score1 = 0
 @score2 = 0
@@ -9,32 +10,23 @@ require './methods'
 
 i = 0
 
-while is_alive?
-  player_number = (i % 2) + 1
-  player_name = "Player #{player_number}"
+
+player1 = Player.create_player("Nick")
+player2 = Player.create_player("Rachel")
+
+while is_alive? player1, player2
+  who_is_playing = (i % 2) + 1
   num1, num2 = generate_question()
-  player_answer = prompt_player_for_answer(player_name, num1, num2)
+  player_answer = prompt_player_for_answer(who_is_playing, player1, player2, num1, num2)
   if correct_answer? player_answer, num1, num2
-    case player_number
-    when 1
-      @score1 += 1
-      puts "Correct!"
-      puts
-    when 2
-      @score2 += 1
-      puts "Correct!"
-      puts
-    end
+    who_is_playing == 1 ? player1.gain_point : player2.gain_point
+    puts "Correct!"
+    puts
   else
-    case player_number
-    when 1
-      @lives1 -= 1
-      puts "Incorrect!"
-    when 2
-      @lives2 -= 1
-      puts "Incorrect!"
-    end
-    display_scores
+    who_is_playing == 1 ? player1.lose_life : player2.lose_life
+    puts "Incorrect!"
+    puts
+    display_scores(player1, player2)
   end
   i += 1
 end
