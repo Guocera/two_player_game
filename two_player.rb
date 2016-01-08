@@ -10,10 +10,10 @@ require './player'
 @lives2 = 3
 
 i = 0
-
-
-player1 = Player.create_player("Nick")
-player2 = Player.create_player("Rachel")
+puts "Player 1: What is your name?"
+player1 = Player.create_player(gets.chomp)
+puts "Player 2: What is your name?"
+player2 = Player.create_player(gets.chomp)
 
 while is_alive? player1, player2
   who_is_playing = (i % 2) + 1
