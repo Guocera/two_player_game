@@ -13,17 +13,35 @@ class NoNameError < StandardError;  end
 @lives1 = 3
 @lives2 = 3
 
+
+actual_name = false
+until actual_name
+  puts "Player 1: What is your name?"
+  begin
+    player1 = Player.create_player(gets.chomp)
+    raise NoNameError, "Please enter a name." if (player1.player_name == "")
+    puts
+  rescue NoNameError => e
+    puts e.message
+  else actual_name = true
+  end
+end
+
+actual_name = false
+until actual_name
+  puts "Player 2: What is your name?"
+  begin
+    player2 = Player.create_player(gets.chomp)
+    raise NoNameError, "Please enter a name." if (player2.player_name == "")
+    puts
+  rescue StandardError
+    puts "Please enter a name."
+  else
+    actual_name = true
+  end
+end
+
 i = 0
-puts "Player 1: What is your name?"
-player1 = Player.create_player(gets.chomp)
-puts
-puts "Player 2: What is your name?"
-#begin
-  player2 = Player.create_player(gets.chomp)
-  puts
-#  raise NoNameError if ( (player2 == "") || (player2 == nil) )
-
-
 while is_alive? player1, player2
   who_is_playing = (i % 2) + 1
   correct_answer, operator, num1, num2 = generate_question()
