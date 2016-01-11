@@ -41,12 +41,24 @@ def generate_question()
 end
 
 def prompt_player_for_answer(who_is_playing, player1, player2, operator, num1, num2)
-  if who_is_playing == 1
-    puts "#{player1.player_name}: What does #{num1} #{operator} #{num2} equal?"
-  else
-    puts "#{player2.player_name}: What does #{num1} #{operator} #{num2} equal?"
+  proper_guess = false
+  until proper_guess
+    begin
+      if who_is_playing == 1
+        puts "#{player1.player_name}: What does #{num1} #{operator} #{num2} equal?"
+      else
+        puts "#{player2.player_name}: What does #{num1} #{operator} #{num2} equal?"
+      end
+      player_answer = gets.chomp
+      raise InvalidGuessError unless player_answer.match(/^-?\d+\.?\d*$/)
+    rescue InvalidGuessError
+      puts "Please enter a number."
+    else
+      proper_guess = true
+      player_answer = player_answer.to_f
+    end
   end
-  gets.chomp.to_f
+  player_answer
 end
 
 def give_feedback(who_is_playing, player_answer, correct_answer, player1, player2)

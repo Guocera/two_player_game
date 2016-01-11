@@ -3,6 +3,10 @@ require 'colorize'
 require './methods'
 require './player'
 
+class InvalidGuessError < StandardError;  end
+class NoNameError < StandardError;  end
+
+
 @score1 = 0
 @score2 = 0
 
@@ -14,8 +18,11 @@ puts "Player 1: What is your name?"
 player1 = Player.create_player(gets.chomp)
 puts
 puts "Player 2: What is your name?"
-player2 = Player.create_player(gets.chomp)
-puts
+#begin
+  player2 = Player.create_player(gets.chomp)
+  puts
+#  raise NoNameError if ( (player2 == "") || (player2 == nil) )
+
 
 while is_alive? player1, player2
   who_is_playing = (i % 2) + 1
@@ -23,5 +30,6 @@ while is_alive? player1, player2
   player_answer = prompt_player_for_answer(who_is_playing, player1, player2, operator, num1, num2)
   give_feedback(who_is_playing, player_answer, correct_answer, player1, player2)
   i += 1
+
 end
 
